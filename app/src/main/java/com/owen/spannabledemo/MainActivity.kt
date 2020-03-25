@@ -9,6 +9,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -55,6 +56,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     // 这里的end是4，但是Span效果是在0~3，所以Span的结尾是不包括end所在的字符
                     it.setSpan(ForegroundColorSpan(Color.RED), 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
                     it.insert(4, "ABC")
+                    tvContent.setText(it)
+                }
+            }
+            R.id.btnSetUnderLineSpan -> {
+                SpannableStringBuilder(nums).also {
+                    // 这里的end是4，但是Span效果是在0~3，所以Span的结尾是不包括end所在的字符
+                    it.setSpan(UnderlineSpan(), 3, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
                     tvContent.setText(it)
                 }
             }
