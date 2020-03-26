@@ -62,6 +62,41 @@
                 android:textAllCaps="false"
                 android:onClick="onClick"
                 android:text="Set Under Line Span(3, 7)"/>
+            <Button
+                android:id="@+id/btnSetRelativeSizeSpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:onClick="onClick"
+                android:text="Set Relative Size Span(3, 7) 1.5f"/>
+            <Button
+                android:id="@+id/btnSetBgColorSpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:onClick="onClick"
+                android:text="Set Background Color Span(3, 7)"/>
+            <Button
+                android:id="@+id/btnSetAlignSpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:onClick="onClick"
+                android:text="Set Align Span"/>
+            <Button
+                android:id="@+id/btnSetCustomSpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:onClick="onClick"
+                android:text="Set Custom Span"/>
+            <Button
+                android:id="@+id/btnChangeSpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:onClick="onClick"
+                android:text="Change Span"/>
 
         </LinearLayout>
     </ScrollView>
