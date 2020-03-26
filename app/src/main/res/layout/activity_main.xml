@@ -91,12 +91,33 @@
                 android:onClick="onClick"
                 android:text="Set Custom Span"/>
             <Button
-                android:id="@+id/btnChangeSpan"
+                android:id="@+id/btnChangeSpanWithoutText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:onClick="onClick"
-                android:text="Change Span"/>
+                android:text="Change Span Without Text"/>
+            <Button
+                android:id="@+id/btnChangeSpanProperties1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:onClick="onClick"
+                android:text="Change Span Properties 1"/>
+            <Button
+                android:id="@+id/btnChangeSpanProperties2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:onClick="onClick"
+                android:text="Change Span Properties 2"/>
+            <Button
+                android:id="@+id/btnChangeSpanProperties3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:onClick="onClick"
+                android:text="Change Span Properties 3"/>
 
         </LinearLayout>
     </ScrollView>

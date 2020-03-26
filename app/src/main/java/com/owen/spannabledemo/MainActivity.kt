@@ -16,12 +16,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     val nums = "0123456789";
 
+    var textView: TextView? = null
+
+    val relativeSizeColorSpan = RelativeSizeColorSpan(1.5f, Color.RED)
+
+
+    val relativeSizeSpan = RelativeSizeSpan(1.2f)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        this.textView = tvContent
 
-        tvContent.setText(SpannableStringBuilder(nums), TextView.BufferType.SPANNABLE)
+        textView?.setText(SpannableStringBuilder(nums), TextView.BufferType.SPANNABLE)
 
     }
 
@@ -29,13 +37,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when(v?.id) {
             R.id.btnReset -> {
 //                tvContent.setText(nums)
-                tvContent.setText(SpannableStringBuilder(nums), TextView.BufferType.SPANNABLE)
+                relativeSizeColorSpan.color = Color.RED
+                textView?.setText(SpannableStringBuilder(nums), TextView.BufferType.SPANNABLE)
             }
             R.id.btnSetSpan -> {
                 SpannableStringBuilder(nums).also {
                     // 这里的end是4，但是Span效果是在0~3，所以Span的结尾是不包括end所在的字符
                     it.setSpan(ForegroundColorSpan(Color.RED), 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-                    tvContent.setText(it)
+                    textView?.setText(it)
                 }
             }
             R.id.btnSetMultiSpan -> {
@@ -43,7 +52,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     // 这里的end是4，但是Span效果是在0~3，所以Span的结尾是不包括end所在的字符
                     it.setSpan(ForegroundColorSpan(Color.RED), 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
                     it.setSpan(StyleSpan(Typeface.BOLD), 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-                    tvContent.setText(it)
+                    textView?.setText(it)
                 }
 
             }
@@ -52,7 +61,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     // 这里的end是4，但是Span效果是在0~3，所以Span的结尾是不包括end所在的字符
                     it.setSpan(ForegroundColorSpan(Color.RED), 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
                     it.insert(0, "ABC")
-                    tvContent.setText(it)
+                    textView?.setText(it)
                 }
 
             }
@@ -61,14 +70,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     // 这里的end是4，但是Span效果是在0~3，所以Span的结尾是不包括end所在的字符
                     it.setSpan(ForegroundColorSpan(Color.RED), 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
                     it.insert(4, "ABC")
-                    tvContent.setText(it)
+                    textView?.setText(it)
                 }
             }
             R.id.btnSetUnderLineSpan -> {
                 SpannableStringBuilder(nums).also {
                     // 这里的end是7，但是Span效果是在3~6，所以Span的结尾是不包括end所在的字符
                     it.setSpan(UnderlineSpan(), 3, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-                    tvContent.setText(it)
+                    textView?.setText(it)
                 }
             }
             R.id.btnSetRelativeSizeSpan -> {
@@ -76,7 +85,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 SpannableStringBuilder(nums).also {
                     // 这里的end是7，但是Span效果是在3~6，所以Span的结尾是不包括end所在的字符
                     it.setSpan(RelativeSizeSpan(1.5f), 3, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-                    tvContent.setText(it)
+                    textView?.setText(it)
                 }
             }
             R.id.btnSetBgColorSpan -> {
@@ -84,7 +93,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 SpannableStringBuilder(nums).also {
                     // 这里的end是7，但是Span效果是在3~6，所以Span的结尾是不包括end所在的字符
                     it.setSpan(BackgroundColorSpan(Color.GREEN), 3, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-                    tvContent.setText(it)
+                    textView?.setText(it)
                 }
             }
             R.id.btnSetAlignSpan -> {
@@ -92,7 +101,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 SpannableStringBuilder(nums + "\n" + "34567" + "\n" + "123").also {
                     // Span应用于整个段落
                     it.setSpan(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, it.length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-                    tvContent.setText(it)
+                    textView?.setText(it)
                 }
             }
             R.id.btnSetCustomSpan -> {
@@ -102,17 +111,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     it.setSpan(ColorAndRelativeSizeSpan(1.5f, Color.RED), 3, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
 //                    it.setSpan(RelativeSizeSpan(1.5f), 3, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
 //                    it.setSpan(ForegroundColorSpan(Color.RED), 3, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-                    tvContent.setText(it)
-
-                    tvContent.text = it
-                    tvContent.setText(it, TextView.BufferType.SPANNABLE)
+                    textView?.setText(it)
                 }
             }
-            R.id.btnChangeSpan -> {
+            R.id.btnChangeSpanWithoutText -> {
                 // 定义Span
                 SpannableStringBuilder(nums).also {
                     // TextView调用setText()方法是，使用带有TextView.BufferType参数的，并传入TextView.BufferType.SPANNABLE
-                    tvContent.setText(it, TextView.BufferType.SPANNABLE)
+                    textView?.setText(it, TextView.BufferType.SPANNABLE)
                 }
 
                 // 获取TextView的Spannable并修改
@@ -120,6 +126,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 s.setSpan(ForegroundColorSpan(Color.RED), 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
                 s.setSpan(StyleSpan(Typeface.BOLD), 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
                 s.setSpan(RelativeSizeSpan(1.5f), 3, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+            }
+            R.id.btnChangeSpanProperties1 -> {
+                textView?.setText(SpannableStringBuilder(nums).also {
+                    relativeSizeColorSpan.color = Color.RED
+                    it.setSpan(relativeSizeColorSpan, 3, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+                }, TextView.BufferType.SPANNABLE)
+                textView?.invalidate()
+            }
+            R.id.btnChangeSpanProperties2 -> {
+                relativeSizeColorSpan.color = Color.GREEN
+                textView?.invalidate()
+            }
+            R.id.btnChangeSpanProperties3 -> {
+                relativeSizeColorSpan.color = Color.YELLOW
+                textView?.invalidate()
             }
         }
     }
@@ -129,7 +150,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
      * 自定义 Span：文本扩大并且设置前景色
      * 实现方案：Android已有文本扩大的 Span，所以只需要扩展文本扩大的 Span （RelativeSizeSpan）即可
      */
-    class RelativeSizeColorSpan(relativeSize: Float, @ColorInt val color: Int): RelativeSizeSpan(relativeSize) {
+    class RelativeSizeColorSpan(var relativeSize: Float, @ColorInt var color: Int): RelativeSizeSpan(relativeSize) {
         override fun updateDrawState(ds: TextPaint) {
             super.updateDrawState(ds)
 
