@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     val relativeSizeSpan = RelativeSizeSpan(1.2f)
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -128,19 +129,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 s.setSpan(RelativeSizeSpan(1.5f), 3, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
             }
             R.id.btnChangeSpanProperties1 -> {
+                relativeSizeColorSpan.color = Color.RED
+                relativeSizeColorSpan.relativeSize = 1.5f
                 textView?.setText(SpannableStringBuilder(nums).also {
-                    relativeSizeColorSpan.color = Color.RED
                     it.setSpan(relativeSizeColorSpan, 3, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
                 }, TextView.BufferType.SPANNABLE)
-                textView?.invalidate()
+                textView?.requestLayout()
             }
             R.id.btnChangeSpanProperties2 -> {
                 relativeSizeColorSpan.color = Color.GREEN
-                textView?.invalidate()
+                relativeSizeColorSpan.relativeSize = 1.8f
+                textView?.requestLayout()
             }
             R.id.btnChangeSpanProperties3 -> {
                 relativeSizeColorSpan.color = Color.YELLOW
-                textView?.invalidate()
+                relativeSizeColorSpan.relativeSize = 2.0f
+                textView?.requestLayout()
             }
         }
     }
@@ -153,8 +157,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     class RelativeSizeColorSpan(var relativeSize: Float, @ColorInt var color: Int): RelativeSizeSpan(relativeSize) {
         override fun updateDrawState(ds: TextPaint) {
             super.updateDrawState(ds)
-
             ds?.color = color
+            ds?.textSize = ds?.textSize * relativeSize
+        }
+
+        override fun updateMeasureState(ds: TextPaint) {
+            super.updateMeasureState(ds)
+            ds?.textSize = ds?.textSize * relativeSize
         }
     }
 
