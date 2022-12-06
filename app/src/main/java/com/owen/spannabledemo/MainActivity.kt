@@ -1,15 +1,15 @@
 package com.owen.spannabledemo
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.Typeface.BOLD
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.*
 import android.text.style.*
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -145,6 +145,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 relativeSizeColorSpan.color = Color.YELLOW
                 relativeSizeColorSpan.relativeSize = 2.0f
                 textView?.requestLayout()
+            }
+            R.id.btnClickableSpan -> {
+                startActivity(Intent(this@MainActivity, ClickableSpanActivity::class.java))
             }
         }
     }

@@ -118,6 +118,13 @@
                 android:textAllCaps="false"
                 android:onClick="onClick"
                 android:text="Change Span Properties 3"/>
+            <Button
+                android:id="@+id/btnClickableSpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:onClick="onClick"
+                android:text="Clickable Span"/>
 
         </LinearLayout>
     </ScrollView>
