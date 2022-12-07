@@ -7,6 +7,7 @@ import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.BackgroundColorSpan
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
@@ -49,7 +50,7 @@ class ClickableSpanActivity : Activity() {
         })
 
         val tvStyle = findViewById<TextView>(R.id.tv_clickstyle_clickable_span)
-        tvStyle.movementMethod = ClickableSpanMovementMethod(Color.argb(0x20, 0x33, 0x33, 0x33))
+        tvStyle.movementMethod = ClickableSpanMovementMethod(Color.argb(0x20, 0x33, 0x33, 0x33), Color.BLUE, Color.RED)
         tvStyle.setText(SpannableString("我是带点击效果的ClickableSpan").apply {
             setSpan(CSClickableSpan(Color.BLUE, View.OnClickListener {
                 Toast.makeText(this@ClickableSpanActivity, tvStyle.text, Toast.LENGTH_SHORT).show()
@@ -84,8 +85,11 @@ class ClickableSpanActivity : Activity() {
     /**
      * 可点击标记 MovementMethod
      * @param clickedBgColor 按下背景颜色
+     * @param normalTextColor 普通模式下文字颜色
+     * @param clickedTextColor 按下文字颜色
      */
-    class ClickableSpanMovementMethod(@ColorInt val clickedBgColor: Int) : LinkMovementMethod() {
+    class ClickableSpanMovementMethod(@ColorInt val clickedBgColor: Int, @ColorInt val normalTextColor : Int,
+                                      @ColorInt val clickedTextColor: Int) : LinkMovementMethod() {
         override fun onTouchEvent(widget: TextView?, buffer: Spannable?, event: MotionEvent?): Boolean {
             if(null == event || null == widget || null == buffer) {
                 return false
@@ -109,6 +113,9 @@ class ClickableSpanActivity : Activity() {
                         buffer.setSpan(
                             BackgroundColorSpan(Color.TRANSPARENT), buffer.getSpanStart(link),
                             buffer.getSpanEnd(link), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        // ACTION_UP 恢复普通字体颜色
+                        buffer.setSpan(ForegroundColorSpan(normalTextColor), buffer.getSpanStart(link),
+                            buffer.getSpanEnd(link), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
                         // ACTION_UP 移除选中
                         // 移除选中（如果将TextView高亮色设置为透明，可忽略此行代码）
@@ -117,6 +124,9 @@ class ClickableSpanActivity : Activity() {
                     } else if (action == MotionEvent.ACTION_DOWN) {
                         // ACTION_DOWN 给当前标记添加一个点击色的背景Span
                         buffer.setSpan(BackgroundColorSpan(clickedBgColor), buffer.getSpanStart(link),
+                            buffer.getSpanEnd(link), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        // ACTION_DOWN 给当前标记添加一个点击色的前景Span
+                        buffer.setSpan(ForegroundColorSpan(clickedTextColor), buffer.getSpanStart(link),
                             buffer.getSpanEnd(link), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                         // 移除选中（如果将TextView高亮色设置为透明，可忽略此行代码）
                         Selection.removeSelection(buffer)
